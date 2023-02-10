@@ -7,12 +7,34 @@ interface Quiz {
     b: number;
 }
 
-function createQuiz(maxDigits: Number, hasAdd: Boolean, hasSub: Boolean): Quiz {
-    return {
-        op: '+',
-        a: 1,
-        b: 2
-    };
+function createQuiz(maxDigits: number, hasAdd: boolean, hasSub: boolean): Quiz {
+    let ops: string[] = [];
+    
+    if (hasSub) {
+        ops.push("-");
+    }
+    if (hasAdd || ops.length === 0) {
+        ops.push("+");
+    }
+
+    const operator = ops[Math.floor(Math.random() * ops.length)];
+    const operand1 = Math.floor(Math.random() * maxDigits);
+    const operand2 = Math.floor(Math.random() * (maxDigits - operand1));
+
+    if (operator == "+") {
+        return {
+            op: "+",
+            a: operand1,
+            b: operand2
+        };
+    }
+    else {
+        return {
+            op: "-",
+            a: Math.max(operand1, operand2),
+            b: Math.min(operand1, operand2)
+        };
+    }
 }
 
 function KidMathApp() {
@@ -23,8 +45,8 @@ function KidMathApp() {
     const [hasSub, setHasSub] = useState(true);
 
     function createQuizList() {
-        var data: Quiz[] = [];
-        for (var i = 0; i < numQuiz; i++) {
+        let data: Quiz[] = [];
+        for (let i = 0; i < numQuiz; i++) {
             data.push(createQuiz(maxDigits, hasAdd, hasSub));
         }
         setQuizList(data);
