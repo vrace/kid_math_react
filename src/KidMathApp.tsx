@@ -7,6 +7,14 @@ interface Quiz {
     b: number;
 }
 
+function createQuiz(maxDigits: Number, hasAdd: Boolean, hasSub: Boolean): Quiz {
+    return {
+        op: '+',
+        a: 1,
+        b: 2
+    };
+}
+
 function KidMathApp() {
     const [quizList, setQuizList] = useState<Quiz[]>([]);
     const [numQuiz, setNumQuiz] = useState(6);
@@ -17,11 +25,7 @@ function KidMathApp() {
     function createQuizList() {
         var data: Quiz[] = [];
         for (var i = 0; i < numQuiz; i++) {
-            data.push({
-                op: '+',
-                a: 1,
-                b: 2
-            });
+            data.push(createQuiz(maxDigits, hasAdd, hasSub));
         }
         setQuizList(data);
     }
